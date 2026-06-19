@@ -1,67 +1,89 @@
-# Origin House Coffee
+Origin House Coffee
 
-Premium coffee shop and coffee e-commerce front-end prototype built from the Stitch AI design reference.
+A premium coffee shop and coffee e-commerce front-end prototype built with React, Vite, React Router, and Tailwind CSS.
 
-## Overview
+Overview
 
-Origin House Coffee is a portfolio-ready React front-end for a premium coffee brand. It includes a responsive marketing and commerce experience with product browsing, product details, cart behavior, location discovery, and brand storytelling.
+Origin House Coffee is a portfolio-ready front-end project for a modern premium coffee brand. The project combines a marketing website experience with basic e-commerce functionality, including product browsing, product detail pages, cart behavior, location discovery, and brand storytelling.
 
-## Features
+The design was based on a Stitch AI-generated visual reference and then converted into a functional React front-end while preserving the original premium coffee shop style.
 
-- Home, Shop, Product Detail, Locations, and About pages
-- React Router page navigation
-- Responsive navbar and mobile drawer menu
-- Product cards, category filters, and sort dropdown
-- Dynamic product detail pages with thumbnail switching, weight selection, quantity controls, and similar products
-- Cart sidebar with quantity controls, remove actions, subtotal, empty state, and localStorage persistence
-- Demo checkout modal with prototype payment notice
-- Location search, city filters, detail modal, and external directions links
-- Tailwind theme aligned with the original premium coffee shop design
+Live Demo
 
-## Tech Stack
+Coming soon
 
-- React
-- Vite
-- React Router
-- Tailwind CSS
-- Context API for cart state
-- localStorage for cart persistence
+Features
 
-## Getting Started
+* Multi-page website experience
+* Home, Shop, Product Detail, Locations, and About pages
+* React Router navigation
+* Responsive desktop and mobile layout
+* Mobile drawer menu
+* Product listing with category filters
+* Product sorting by price and newest items
+* Dynamic product detail pages
+* Product thumbnail switching
+* Weight selection
+* Quantity controls
+* Similar products section
+* Cart sidebar
+* Add to cart functionality
+* Increase and decrease cart item quantity
+* Remove items from cart
+* Cart subtotal calculation
+* Empty cart state
+* Cart persistence with localStorage
+* Demo checkout modal
+* Location search
+* City-based location filters
+* Location detail modal
+* External directions links
+* Static product and location data
+* Tailwind CSS theme based on a premium coffee brand style
 
-Install dependencies:
+Tech Stack
 
-```bash
+* React
+* Vite
+* React Router
+* Tailwind CSS
+* Context API
+* localStorage
+
+Pages
+
+Home
+
+The landing page introduces the coffee brand with a premium hero section, featured products, brand experience content, location previews, and footer navigation.
+
+Shop
+
+The shop page displays coffee products in a responsive grid with filtering, sorting, product cards, and add-to-cart actions.
+
+Product Detail
+
+The product detail page includes dynamic product information, image thumbnails, taste notes, origin, roast level, process, weight selection, quantity controls, and similar products.
+
+Locations
+
+The locations page allows users to search and filter coffee shop locations by city. Each location includes detailed information and an external directions link.
+
+About
+
+The about page presents the brand story, coffee philosophy, image gallery, and sustainability-focused content.
+
+Installation
+
 npm install
-```
-
-Run the development server:
-
-```bash
 npm run dev
-```
 
-Open the local URL shown in the terminal, usually:
+Build
 
-```text
-http://127.0.0.1:5173/
-```
-
-Build for production:
-
-```bash
 npm run build
-```
-
-Preview the production build:
-
-```bash
 npm run preview
-```
 
-## Project Structure
+Project Structure
 
-```text
 src/
   components/
   context/
@@ -72,12 +94,26 @@ reference/
   design-reference.html
 memory-bank/
   projectContext.md
-```
 
-## Notes
+Notes
 
-- This is a front-end prototype only.
-- There is no backend.
-- Payment is not available.
-- Product and location data are static front-end data files.
-- `reference/design-reference.html` is preserved as the visual source of truth and should not be modified.
+* This project is a front-end prototype only.
+* There is no backend.
+* There is no real payment integration.
+* Checkout is displayed as a demo modal.
+* Product and location data are stored as static front-end data.
+* reference/design-reference.html is kept as the original visual design reference and should not be modified.
+
+Future Improvements
+
+* Add backend API integration
+* Add authentication
+* Add real checkout and payment functionality
+* Add admin dashboard for managing products and locations
+* Add CMS integration for brand content
+* Add advanced animations and page transitions
+* Add unit and component tests
+
+Author
+
+Created by Alizamin Fatullayev as a front-end portfolio project.
