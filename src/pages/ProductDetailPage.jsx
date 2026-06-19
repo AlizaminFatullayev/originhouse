@@ -58,7 +58,7 @@ export default function ProductDetailPage() {
         <div className="lg:col-span-5 lg:sticky lg:top-32 space-y-10">
           <header className="space-y-4">
             <p className="font-label-md text-label-md uppercase tracking-widest text-outline">{product.eyebrow}</p>
-            <h1 className="font-headline-lg text-headline-lg text-primary leading-tight">{product.name.toUpperCase()}</h1>
+            <h1 className="font-headline-lg text-headline-lg text-primary leading-tight break-words">{product.name.toUpperCase()}</h1>
             <p className="font-headline-md text-headline-md text-primary">${product.price.toFixed(2)}</p>
           </header>
           <div className="space-y-6">

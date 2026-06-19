@@ -75,7 +75,7 @@ export default function CartSidebar() {
                     <p className="font-body-md text-on-secondary-container mb-4">
                       {item.weight} · {currencyFormatter.format(item.product.price)}
                     </p>
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
                       <QuantitySelector
                         quantity={item.quantity}
                         onDecrease={() => decreaseQuantity(item.product.slug, item.weight)}

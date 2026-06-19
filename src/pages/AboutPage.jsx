@@ -56,7 +56,9 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 text-center max-w-3xl px-margin-mobile">
           <p className="font-label-md text-label-md text-on-primary mb-6 tracking-[0.3em] uppercase opacity-90">Est. 2014</p>
-          <h1 className="font-display-lg text-display-lg md:text-[84px] text-on-primary leading-none mb-8 drop-shadow-sm">About Our Coffee House</h1>
+          <h1 className="font-display-lg text-[44px] sm:text-[56px] md:text-[84px] text-on-primary leading-none mb-8 drop-shadow-sm">
+            About Our Coffee House
+          </h1>
           <div className="w-16 h-px bg-on-primary mx-auto opacity-50" />
         </div>
       </section>

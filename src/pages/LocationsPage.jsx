@@ -20,7 +20,7 @@ export default function LocationsPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="max-w-2xl">
             <span className="font-label-md text-label-md text-secondary uppercase tracking-widest mb-4 block">Our Spaces</span>
-            <h1 className="font-display-lg text-display-lg md:text-[80px] leading-tight">Find Your House</h1>
+            <h1 className="font-display-lg text-[48px] md:text-[80px] leading-tight">Find Your House</h1>
           </div>
           <div className="w-full md:w-96">
             <label className="sr-only" htmlFor="location-search">
