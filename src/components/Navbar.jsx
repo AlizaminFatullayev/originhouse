@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useCart } from "../context/CartContext.jsx";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -8,6 +9,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { cartCount } = useCart();
   const linkClass = ({ isActive }) =>
     [
       "font-label-md text-label-md transition-colors duration-300",
@@ -38,9 +40,11 @@ export default function Navbar() {
             <span className="material-symbols-outlined" aria-hidden="true">
               shopping_bag
             </span>
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-on-primary text-[10px] flex items-center justify-center rounded-full">
-              0
-            </span>
+            {cartCount > 0 ? (
+              <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 bg-primary text-on-primary text-[10px] flex items-center justify-center rounded-full">
+                {cartCount}
+              </span>
+            ) : null}
           </button>
           <button type="button" className="md:hidden text-primary" aria-label="Open mobile menu">
             <span className="material-symbols-outlined" aria-hidden="true">
