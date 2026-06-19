@@ -1,54 +1,13 @@
 import { Link } from "react-router-dom";
-
-const featuredProducts = [
-  {
-    name: "Worka Chelchele",
-    eyebrow: "Single Origin - Ethiopia",
-    notes: "Notes of dark chocolate, stone fruit, and caramel",
-    price: "$26.00",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuBL1xnB11mavvCEYVIRi0bxgdg-ofrT6fwnVtlSR85uAfjXlrza9LiSIumzjDIFtE_7n-zEFxBLvNlL9kYtks3LcytbjaIxOEFoG8YXLQ6ZxhP7hZEYHWa-Gxsw8dUfRGJ1QWfUZGOl6lOlagQdAoOQELrW5yKIweRwN0sKDYqvxtRlQr2c2HIhP7W4FUX1uIz641R9gkagvfHjilAvQeXrb15MmFfZT_Xe0JE05MkS5LYUG3PnbTS92muFwfOF61tIydPVa8ryS-Y",
-  },
-  {
-    name: "The Ritual Blend",
-    eyebrow: "Seasonal Blend - House",
-    notes: "Notes of toasted almond, honey, and red apple",
-    price: "$22.00",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDsrmcK2_QiD4WSc2bfZZYsrWsQgsOA6U6uR5yx-ZvSnCmClQUcRYR7UZz6vGQ_bjvAhbMnXzWJyuKhSQVvTeqCrJclj1xDxinh8A2dznr1u6FmMhdUKAou55H8ktiDARmKP5f1Z8_sQSuN_kwjo7a3CsQJZ871AtFNUU6owsR6A9OVq9obS2m0msrw1ZUpOhkCD_nluukrUMEM07_T-kQMGfHukxXcR_rNRJR-zpKcZlFOUGeOsAf6CY8oDVz8L-jrRc-pFdYV2Vg",
-  },
-  {
-    name: "El Paraiso Anaerobic",
-    eyebrow: "Limited Release - Colombia",
-    notes: "Notes of strawberry cream, hibiscus, and cocoa",
-    price: "$32.00",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAVq1_1qJ2asTTw_lX2uDprA4nInU9hPjCjs5Ac0hsWbVfnXzU3ZvJ0VQbdM3sUFiSCPijtlpjJE9sZa8tH_890P5FcUQ3Fa7asVmxbn27vJyKJwelO-sGLpCixCsSUMrroHQnrHW3JncEeGwRwUCBI22SSu5fGqpIRq87J3t2K3quW-yI-VGaiMlZ6_2eOXmK1dicyq22PFfjqytVC4P4_BmV96-vPAbUjdPyhB1K5fUmPSuppNuHFZZuch6uUOGlCiN4Rn1GQF_Q",
-  },
-];
-
-const locations = [
-  {
-    name: "The Downtown Gallery",
-    city: "London",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDUKJHECOVI0d824f0IDziCL9Q3hVpplbVh7kC-DQXIWIkp9yhPJouV2zKK755iap0dvAlRykM25nyooscLLhiJG4rQQwjgp59GSEGPbz2ph49gjkl8R4DTsBK6P7DKEh--PoYlXuI3Xew_-Oqk0FoFAxRk9xKbNuCFAMMh17lwZOr2viRn-FoJjzaNdKd9wUCJhozlAsGOtfFjHESS662gkymjK0DgNYC7AzgZyU92Bbq7K2540BJ6rLdyvZVzTT07E2Jq-d3qq0E",
-  },
-  {
-    name: "The Plateau House",
-    city: "Dubai",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCKLZLfh1kvEi9Uyxh9FTGCfLFExabua14qrWyp6mGHcPmU5TD7W8pWyF4za51lXa2BK79oZynmRAwTy4-ko4wxBGrC07WFyEzEL8_umKmtizgG_m4DBIGjQwCcxCNMNFiAKE_YyAs7B8W_Dx5RTAAonGil57qtkZuImlIOsLkNDe3YQIix8ejVCd68_1QDMvamncaQLSWQbwmbt4X86BmOC3EBe51U5ofXqrJKJ-8VyqKSkEYoiCRrlykt1dzysg0BIrA90L0oXpo",
-  },
-  {
-    name: "The West End Loft",
-    city: "New York",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuD_esEBPDqSj4uNNwTdPwybenT-tbtN_GRptQF49hemHSpqwZLMsJZXFXbBhA7In5n5If00AP3kUZUuzaQdOFEWu6IHs7KzEDIpB64XfwxNRqP2R6rhjTZ8bBde0T4NZbeUH-XdFk0K_ZTjRoUXrv03aRd0-HIA82dctFVNIQGumz8ndcQdTmmt0gxTvbsD2ebvVrntT2b1JGQznt1sLAM3GoOPqcWHDe4KfDg0BbmYLAtgwdw12dPMQL2Tk8th--R4Yjfpe0gz3Hk",
-  },
-];
+import ProductCard from "../components/ProductCard.jsx";
+import SectionTitle from "../components/SectionTitle.jsx";
+import { locations } from "../data/locations.js";
+import { products } from "../data/products.js";
 
 export default function HomePage() {
+  const featuredProducts = products.filter((product) => product.isFeatured).slice(0, 3);
+  const featuredLocations = locations.slice(0, 3);
+
   return (
     <main>
       <section className="relative min-h-[700px] h-[calc(100vh-80px)] flex items-center overflow-hidden">
@@ -85,34 +44,14 @@ export default function HomePage() {
 
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-6">
-          <div>
-            <p className="font-label-md text-label-md text-secondary tracking-[0.2em] uppercase mb-4">The Selection</p>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Our Current Roasts</h2>
-          </div>
+          <SectionTitle eyebrow="The Selection" title="Our Current Roasts" />
           <Link className="font-label-md text-label-md text-primary border-b border-primary/20 hover:border-primary transition-colors pb-1" to="/shop">
             View All Roasts
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           {featuredProducts.map((product) => (
-            <article className="group" key={product.name}>
-              <Link to="/shop/ethiopia-yirgacheffe" className="block">
-                <div className="aspect-[4/5] bg-surface-variant mb-8 overflow-hidden">
-                  <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={product.image} alt={`${product.name} coffee packaging`} />
-                </div>
-                <div className="space-y-3">
-                  <p className="font-label-md text-label-md text-secondary tracking-widest uppercase">{product.eyebrow}</p>
-                  <h3 className="font-headline-md text-headline-md text-primary">{product.name}</h3>
-                  <p className="font-body-md text-secondary italic">{product.notes}</p>
-                  <div className="pt-4 flex justify-between items-center">
-                    <span className="font-body-lg text-primary">{product.price}</span>
-                    <span className="font-label-md text-label-md text-primary uppercase tracking-widest group-hover:underline underline-offset-8">
-                      View Product
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </article>
+            <ProductCard key={product.slug} product={product} variant="featured" />
           ))}
         </div>
       </section>
@@ -143,16 +82,15 @@ export default function HomePage() {
       </section>
 
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-24">
-          <p className="font-label-md text-label-md text-secondary tracking-[0.2em] uppercase mb-4">Our Flagships</p>
-          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Thoughtfully Designed Spaces</h2>
+        <div className="max-w-2xl mx-auto mb-24">
+          <SectionTitle eyebrow="Our Flagships" title="Thoughtfully Designed Spaces" align="center" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-          {locations.map((location) => (
-            <article className="group cursor-pointer" key={location.name}>
+          {featuredLocations.map((location) => (
+            <article className="group cursor-pointer" key={location.id}>
               <Link to="/locations" className="block">
                 <div className="aspect-square bg-surface-variant mb-6 overflow-hidden">
-                  <img className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src={location.image} alt={`${location.name} coffee shop`} />
+                  <img className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" src={location.image} alt={location.imageAlt} />
                 </div>
                 <div className="text-center">
                   <h3 className="font-headline-md text-[24px] text-primary mb-2">{location.name}</h3>
