@@ -1,12 +1,24 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard.jsx";
+import QuantitySelector from "../components/QuantitySelector.jsx";
+import { useCart } from "../context/CartContext.jsx";
 import { getProductBySlug, getSimilarProducts, products } from "../data/products.js";
 
 export default function ProductDetailPage() {
   const { productId } = useParams();
   const product = getProductBySlug(productId) || products[0];
   const similarProducts = getSimilarProducts(product);
-  const [mainImage, ...thumbnails] = product.gallery;
+  const [selectedImage, setSelectedImage] = useState(product.gallery[0]);
+  const [selectedWeight, setSelectedWeight] = useState(product.weightOptions[0]);
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart } = useCart();
+
+  useEffect(() => {
+    setSelectedImage(product.gallery[0]);
+    setSelectedWeight(product.weightOptions[0]);
+    setQuantity(1);
+  }, [product]);
 
   return (
     <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
@@ -21,19 +33,25 @@ export default function ProductDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
         <div className="lg:col-span-7 flex flex-col gap-6">
           <div className="aspect-[4/5] bg-surface-container-low overflow-hidden">
-            <img className="w-full h-full object-cover" src={mainImage.src} alt={mainImage.alt} />
+            <img className="w-full h-full object-cover" src={selectedImage.src} alt={selectedImage.alt} />
           </div>
           <div className="grid grid-cols-4 gap-4">
-            {[mainImage, ...thumbnails].map((thumbnail, index) => (
+            {product.gallery.map((thumbnail, index) => {
+              const isSelected = thumbnail.src === selectedImage.src;
+
+              return (
               <button
                 key={`${thumbnail.src}-${index}`}
                 type="button"
-                className={`aspect-square bg-surface-container border-2 transition-all ${index === 0 ? "border-primary" : "border-transparent"}`}
+                className={`aspect-square bg-surface-container border-2 transition-all ${isSelected ? "border-primary" : "border-transparent"}`}
                 aria-label={`View product image ${index + 1}`}
+                aria-pressed={isSelected}
+                onClick={() => setSelectedImage(thumbnail)}
               >
                 <img className="w-full h-full object-cover opacity-80 hover:opacity-100" src={thumbnail.src} alt={thumbnail.alt} />
               </button>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -74,8 +92,10 @@ export default function ProductDetailPage() {
                     key={weight}
                     type="button"
                     className={`px-6 py-3 border font-label-md text-label-md transition-all ${
-                      index === 0 ? "border-primary text-primary" : "border-outline/30 text-secondary hover:border-primary hover:text-primary"
+                      weight === selectedWeight ? "border-primary bg-primary-container text-on-primary" : "border-outline/30 text-secondary hover:border-primary hover:text-primary"
                     }`}
+                    aria-pressed={weight === selectedWeight}
+                    onClick={() => setSelectedWeight(weight)}
                   >
                     {weight.toUpperCase()}
                   </button>
@@ -84,22 +104,18 @@ export default function ProductDetailPage() {
             </div>
             <div>
               <span className="font-label-md text-label-md text-outline block mb-4 uppercase tracking-widest">Quantity</span>
-              <div className="flex items-center border border-outline/30 w-fit">
-                <button type="button" className="px-4 py-3 text-secondary hover:text-primary transition-colors" aria-label="Decrease quantity">
-                  <span className="material-symbols-outlined" aria-hidden="true">
-                    remove
-                  </span>
-                </button>
-                <span className="px-6 py-3 font-label-md text-label-md text-primary">01</span>
-                <button type="button" className="px-4 py-3 text-secondary hover:text-primary transition-colors" aria-label="Increase quantity">
-                  <span className="material-symbols-outlined" aria-hidden="true">
-                    add
-                  </span>
-                </button>
-              </div>
+              <QuantitySelector
+                quantity={quantity}
+                onDecrease={() => setQuantity((currentQuantity) => Math.max(1, currentQuantity - 1))}
+                onIncrease={() => setQuantity((currentQuantity) => currentQuantity + 1)}
+              />
             </div>
           </div>
-          <button type="button" className="w-full bg-primary-container text-on-primary py-5 font-label-md text-label-md tracking-widest uppercase hover:opacity-90 transition-all active:scale-95">
+          <button
+            type="button"
+            className="w-full bg-primary-container text-on-primary py-5 font-label-md text-label-md tracking-widest uppercase hover:opacity-90 transition-all active:scale-95"
+            onClick={() => addToCart(product, { weight: selectedWeight, quantity })}
+          >
             Add to Cart
           </button>
         </div>
