@@ -21,7 +21,7 @@ export default function ProductCard({ product, variant = "shop", onAddToCart }) 
         {!isFeatured ? (
           <button
             type="button"
-            className="absolute bottom-6 left-6 right-6 bg-primary-container text-on-primary py-4 font-label-md text-label-md transition-all duration-300 hover:bg-primary"
+            className="absolute bottom-6 left-6 right-6 bg-primary-container text-on-primary py-4 font-label-md text-label-md opacity-100 translate-y-0 md:opacity-0 md:translate-y-4 md:group-hover:opacity-100 md:group-hover:translate-y-0 focus:opacity-100 focus:translate-y-0 transition-all duration-300 hover:bg-primary"
             onClick={() => onAddToCart?.(product)}
           >
             Add to Cart

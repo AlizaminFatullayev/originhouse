@@ -30,7 +30,7 @@ function loadStoredCartItems() {
         return {
           product,
           weight: item.weight,
-          quantity: item.quantity,
+          quantity: Math.max(1, Number(item.quantity) || 1),
         };
       })
       .filter(Boolean);
@@ -50,7 +50,11 @@ export function CartProvider({ children }) {
       quantity: item.quantity,
     }));
 
-    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(storedItems));
+    try {
+      window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(storedItems));
+    } catch {
+      // Storage can be unavailable in private or restricted browser contexts.
+    }
   }, [cartItems]);
 
   function addToCart(product, options = {}) {
