@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import CartSidebar from "./components/CartSidebar.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/locations" element={<LocationsPage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
+      <CartSidebar />
       <Footer />
     </div>
   );

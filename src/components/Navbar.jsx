@@ -9,7 +9,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const { cartCount } = useCart();
+  const { cartCount, openCart } = useCart();
   const linkClass = ({ isActive }) =>
     [
       "font-label-md text-label-md transition-colors duration-300",
@@ -36,7 +36,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex items-center gap-6">
-          <button type="button" className="relative text-primary hover:opacity-80 transition-opacity" aria-label="Open cart">
+          <button type="button" className="relative text-primary hover:opacity-80 transition-opacity" aria-label="Open cart" onClick={openCart}>
             <span className="material-symbols-outlined" aria-hidden="true">
               shopping_bag
             </span>

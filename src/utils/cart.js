@@ -13,3 +13,27 @@ export function addCartItem(currentItems, product, options = {}) {
 
   return [...currentItems, { product, weight, quantity }];
 }
+
+export function increaseCartItemQuantity(currentItems, productSlug, weight) {
+  return currentItems.map((item) =>
+    item.product.slug === productSlug && item.weight === weight
+      ? { ...item, quantity: item.quantity + 1 }
+      : item,
+  );
+}
+
+export function decreaseCartItemQuantity(currentItems, productSlug, weight) {
+  return currentItems.map((item) =>
+    item.product.slug === productSlug && item.weight === weight
+      ? { ...item, quantity: Math.max(1, item.quantity - 1) }
+      : item,
+  );
+}
+
+export function removeCartItem(currentItems, productSlug, weight) {
+  return currentItems.filter((item) => !(item.product.slug === productSlug && item.weight === weight));
+}
+
+export function getCartSubtotal(currentItems) {
+  return currentItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
+}
