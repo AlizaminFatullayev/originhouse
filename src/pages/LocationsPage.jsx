@@ -1,7 +1,19 @@
+import { useMemo, useState } from "react";
 import LocationCard from "../components/LocationCard.jsx";
+import LocationModal from "../components/LocationModal.jsx";
 import { cityFilters, locations } from "../data/locations.js";
+import { filterLocations } from "../utils/locations.js";
 
 export default function LocationsPage() {
+  const [activeCity, setActiveCity] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const visibleLocations = useMemo(
+    () => filterLocations(locations, activeCity, searchTerm),
+    [activeCity, searchTerm],
+  );
+
   return (
     <main>
       <header className="pt-24 md:pt-32 pb-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
@@ -12,14 +24,16 @@ export default function LocationsPage() {
           </div>
           <div className="w-full md:w-96">
             <label className="sr-only" htmlFor="location-search">
-              Search by city
+              Search by city or location name
             </label>
             <div className="relative group">
               <input
                 id="location-search"
                 className="w-full bg-transparent border-b border-outline/30 py-3 focus:outline-none focus:border-primary transition-colors font-body-md text-body-md placeholder:text-outline/50"
                 placeholder="Search by city..."
-                type="text"
+                type="search"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
               />
               <span className="material-symbols-outlined absolute right-0 top-3 text-outline group-focus-within:text-primary" aria-hidden="true">
                 search
@@ -28,26 +42,38 @@ export default function LocationsPage() {
           </div>
         </div>
         <div className="flex gap-4 mt-12 overflow-x-auto hide-scrollbar" aria-label="City filters">
-          {cityFilters.map((city, index) => (
-            <button
-              key={city}
-              type="button"
-              className={`px-6 py-2 font-label-md text-label-md border transition-all whitespace-nowrap ${
-                index === 0 ? "bg-primary text-on-primary border-primary" : "bg-transparent text-secondary hover:text-primary border-outline/20"
-              }`}
-            >
-              {city === "All" ? "All Locations" : city}
-            </button>
-          ))}
+          {cityFilters.map((city) => {
+            const isActive = city === activeCity;
+
+            return (
+              <button
+                key={city}
+                type="button"
+                className={`px-6 py-2 font-label-md text-label-md border transition-all whitespace-nowrap ${
+                  isActive ? "bg-primary text-on-primary border-primary" : "bg-transparent text-secondary hover:text-primary border-outline/20"
+                }`}
+                aria-pressed={isActive}
+                onClick={() => setActiveCity(city)}
+              >
+                {city === "All" ? "All Locations" : city}
+              </button>
+            );
+          })}
         </div>
       </header>
 
       <section className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pb-section-gap">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-gutter">
-          {locations.map((location) => (
-            <LocationCard key={location.id} location={location} />
-          ))}
-        </div>
+        {visibleLocations.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-24 gap-x-gutter">
+            {visibleLocations.map((location) => (
+              <LocationCard key={location.id} location={location} onSelect={setSelectedLocation} />
+            ))}
+          </div>
+        ) : (
+          <div className="py-section-gap text-center">
+            <p className="font-body-lg text-body-lg text-secondary">No locations match your search.</p>
+          </div>
+        )}
       </section>
 
       <section className="w-full h-[600px] relative overflow-hidden bg-surface-container">
@@ -66,6 +92,8 @@ export default function LocationsPage() {
           alt="Editorial map-style city texture for Origin House locations."
         />
       </section>
+
+      <LocationModal location={selectedLocation} onClose={() => setSelectedLocation(null)} />
     </main>
   );
 }
