@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CheckoutModal from "./CheckoutModal.jsx";
 import QuantitySelector from "./QuantitySelector.jsx";
 import { useCart } from "../context/CartContext.jsx";
 
@@ -8,6 +9,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 });
 
 export default function CartSidebar() {
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const {
     cartItems,
     closeCart,
@@ -24,24 +26,30 @@ export default function CartSidebar() {
     return () => document.body.classList.remove("overflow-hidden");
   }, [isCartOpen]);
 
+  function handleContinueShopping() {
+    setIsCheckoutOpen(false);
+    closeCart();
+  }
+
   return (
-    <div className={`fixed inset-0 z-50 ${isCartOpen ? "" : "pointer-events-none"}`} aria-hidden={!isCartOpen}>
-      <button
-        type="button"
-        className={`absolute inset-0 bg-primary/40 backdrop-blur-sm transition-opacity duration-500 ${
-          isCartOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-        aria-label="Close cart"
-        onClick={closeCart}
-      />
-      <aside
-        className={`fixed top-0 right-0 h-full w-full max-w-md bg-surface shadow-2xl transition-transform duration-500 ease-out flex flex-col p-6 md:p-8 ${
-          isCartOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="cart-title"
-      >
+    <>
+      <div className={`fixed inset-0 z-50 ${isCartOpen ? "" : "pointer-events-none"}`} aria-hidden={!isCartOpen}>
+        <button
+          type="button"
+          className={`absolute inset-0 bg-primary/40 backdrop-blur-sm transition-opacity duration-500 ${
+            isCartOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+          aria-label="Close cart"
+          onClick={closeCart}
+        />
+        <aside
+          className={`fixed top-0 right-0 h-full w-full max-w-md bg-surface shadow-2xl transition-transform duration-500 ease-out flex flex-col p-6 md:p-8 ${
+            isCartOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="cart-title"
+        >
         <div className="flex justify-between items-center mb-12">
           <h2 id="cart-title" className="font-headline-md text-headline-md text-primary">
             Your Cart
@@ -90,7 +98,11 @@ export default function CartSidebar() {
                 <span className="font-label-md text-label-md text-secondary uppercase">Subtotal</span>
                 <span className="font-body-lg text-primary">{currencyFormatter.format(subtotal)}</span>
               </div>
-              <button type="button" className="w-full bg-primary-container text-on-primary py-5 font-label-md text-label-md tracking-widest uppercase hover:opacity-90 transition-opacity">
+              <button
+                type="button"
+                className="w-full bg-primary-container text-on-primary py-5 font-label-md text-label-md tracking-widest uppercase hover:opacity-90 transition-opacity"
+                onClick={() => setIsCheckoutOpen(true)}
+              >
                 Checkout
               </button>
               <button type="button" className="w-full mt-4 border border-outline/30 text-primary py-4 font-label-md text-label-md tracking-widest uppercase hover:border-primary transition-all" onClick={closeCart}>
@@ -110,7 +122,13 @@ export default function CartSidebar() {
             </button>
           </div>
         )}
-      </aside>
-    </div>
+        </aside>
+      </div>
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        onContinueShopping={handleContinueShopping}
+      />
+    </>
   );
 }
